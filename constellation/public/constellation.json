@@ -1,0 +1,88 @@
+{
+    "constellation": [
+    {
+        "id": "001",
+        "imgUrl": "/images/sl_aries.png",
+        "name": "白羊座",
+        "english": "Aries",
+        "date": "(3.21-4.19)"
+    },
+    {
+        "id": "002",
+        "imgUrl": "/images/sl_taurus.png",
+        "name": "金牛座",
+        "english": "Taurus",
+        "date": "(4.20-5.20)"
+
+    },
+    {
+        "id": "003",
+        "imgUrl": "/images/sl_gemini.png",
+        "name": "双子座",
+        "english": "Gemini",
+        "date": "(5.21-6.21)"
+    },
+    {
+         "id": "004",
+         "imgUrl": "/images/sl_kingcrab.png",
+         "name": "巨蟹座",
+         "english": "Kingcrab",
+         "date": "(6.22-7.22)"
+    },
+     {
+         "id": "005",
+         "imgUrl": "/images/sl_leo.png",
+         "name": "狮子座",
+         "english": "Leo",
+         "date": "(7.23-8.22)"
+     },
+    {
+        "id": "006",
+        "imgUrl": "/images/sl_virgo.png",
+        "name": "处女座",
+        "english": "Virgo",
+        "date": "(8.23-9.22)"
+    },
+     {
+         "id": "007",
+         "imgUrl": "/images/sl_libra.png",
+         "name": "天秤座",
+         "english": "Libra",
+         "date": "(9.23-10.23)"
+     },
+     {
+         "id": "008",
+         "imgUrl": "/images/sl_scorpio.png",
+         "name": "天蝎座",
+         "english": "Scorpio",
+         "date": "(10.24-11.22)"
+     },
+     {
+         "id": "009",
+         "imgUrl": "/images/sl_sagittarius.png",
+         "name": "射手座",
+         "english": "Sagittarius",
+         "date": "(11.23-12.21)"
+     },
+     {
+         "id": "010",
+         "imgUrl": "/images/sl_capricornus.png",
+         "name": "摩羯座",
+         "english": "Capricornus",
+         "date": "(12.22-1.19)"
+     },
+     {
+         "id": "011",
+         "imgUrl": "/images/sl_aquarius.png",
+         "name": "水瓶座",
+         "english": "Aquarius",
+         "date": "(1.20-2.18)"
+     },
+     {
+         "id": "012",
+         "imgUrl": "/images/sl_pisces.png",
+         "name": "双鱼座",
+         "english": "Pisces",
+         "date": "(2.19-3.20)"
+     }]
+}
