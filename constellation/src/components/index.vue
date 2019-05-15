@@ -1,5 +1,5 @@
 <template>
-  <div class="today-parent" >
+  <div class="today-parent">
     <div class="today-top">
       <p class="today-title">星座伴侣</p>
       <img src="../assets/images/icon_back.png" class="back-image" @click="skip">
@@ -9,77 +9,86 @@
         <p class="today-date">{{myDate}}</p>
       </div>
     </div>
-    <swiper-imgs v-if="show"></swiper-imgs>
-    <div class="temp" v-else>
-      <img src="../assets/images/timg.gif" alt="">
+    <transition name="s">
+      <swiper-imgs v-if="show"></swiper-imgs>
+    </transition>
+
+    <div class="temp" v-if="!show">
+      <div v-if="hide">
+        <div class="temp-msg">啊哦,您的网络好像有问题---</div>
+        <img src="../assets/images/timg.gif" alt="">
+      </div>
+      <div v-else>
+        <div class="temp-hide">加载中---</div>
+        <img src="../assets/images/timg.gif" alt="">
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-    import store from '../store'
-    import swiperImgs from './index/swiperImgs'
-    export default {
-        name: "index",
-        data() {
-          return {
-            myName: '',
-            myEng: '',
-            myDate: '',
-            myImgUrl: ''
-          }
-        },
-        components: {
-          swiperImgs
-        },
-        created(){
+  import store from '../store'
+  import swiperImgs from './index/swiperImgs'
 
-          let date = new Date();
-          let arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22];
-          let num = date.getDate() < arr[date.getMonth()] ? date.getMonth() - 3 : date.getMonth() - 2;
-          // let obj = JSON.parse(window.localStorage.getItem('item'));
+  export default {
+    name: "index",
+    data () {
+      return {
+        myName: '',
+        myEng: '',
+        myDate: '',
+        myImgUrl: '',
+        hide: false
+      }
+    },
+    components: {
+      swiperImgs
+    },
+    created () {
+      setTimeout(() => {
+        this.hide = true
+      }, 3000)
+      let date = new Date();
+      let arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22];
+      let num = date.getDate() < arr[date.getMonth()] ? date.getMonth() - 3 : date.getMonth() - 2;
 
-          this.$store.dispatch('getData', this.$route.params.name?this.$route.params.name:'白羊座')
-          let params = this.$route.params
-          // console.log(this.$store.state.constell);
-          if (params.name) {
-            this.myName = params.name;
-          } else {
-            // this.myName = '白羊座'
-            this.myName = this.$store.state.constell[num].name;
-          }
-          if (params.eng) {
-            this.myEng = params.eng;
-          } else {
-            // this.myEng = 'Aries'
-            this.myEng = this.$store.state.constell[num].english;
-          }
-          if (params.date) {
-            this.myDate = params.date;
+      this.$store.dispatch('getData', this.$route.params.name ? this.$route.params.name : '白羊座')
+      let params = this.$route.params
 
-          } else {
-            // this.myDate = '(3.21-4.19)'
-            this.myDate = this.$store.state.constell[num].date;
-          }
-          if (params.imgUrl) {
-            this.myImgUrl = require('../assets' + params.imgUrl);
-          } else {
-            // this.myImgUrl = require('../assets/images/sl_aries.png')
-            this.myImgUrl = require('../assets' + this.$store.state.constell[num].imgUrl);
-          }
+      if (params.name) {
+        this.myName = params.name;
+      } else {
+        this.myName = this.$store.state.constell[num].name;
+      }
+      if (params.eng) {
+        this.myEng = params.eng;
+      } else {
+        this.myEng = this.$store.state.constell[num].english;
+      }
+      if (params.date) {
+        this.myDate = params.date;
 
-        },
-        computed: {
-          show(){
-            return this.$store.state.today
-          }
-        },
-        methods: {
-          skip() {
-            this.$router.push({path: '/select', name: 'select'})
-          }
-        }
+      } else {
+        this.myDate = this.$store.state.constell[num].date;
+      }
+
+      if (params.imgUrl) {
+        this.myImgUrl = require('../assets' + params.imgUrl);
+      } else {
+        this.myImgUrl = require('../assets' + this.$store.state.constell[num].imgUrl);
+      }
+    },
+    computed: {
+      show () {
+        return this.$store.state.today
+      }
+    },
+    methods: {
+      skip () {
+        this.$router.push({path: '/select', name: 'select'})
+      }
     }
+  }
 </script>
 
 <style scoped lang="less">
@@ -133,6 +142,19 @@
     }
     .today-top {
       height: 4.5rem;
+    }
+    .s-enter,
+    .s-leave-to {
+      transform: scale(0);
+    }
+    .s-enter-active,
+    .s-leave-active {
+      transition: transform 1s;
+    }
+    .temp-msg,
+    .temp-hide {
+      font-size: .4rem;
+      text-align: center;
     }
   }
 </style>

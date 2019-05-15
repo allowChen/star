@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from './axios'
 
-Vue.use(Vuex)
+Vue.use (Vuex)
 
 
-export default new Vuex.Store({
+export default new Vuex.Store ({
   state: {
     today: null,
     tomorrow: null,
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     constell: null
   },
   mutations: {
-    increment(state, val) {
+    increment (state, val) {
       state.today = val.today
       state.tomorrow = val.tomorrow
       state.week = val.week
@@ -24,7 +24,7 @@ export default new Vuex.Store({
       state.month = val.month
       state.year = val.year
     },
-    getConstell(state, val){
+    getConstell (state, val) {
       state.constell = val.constellation
     }
   },

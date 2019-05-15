@@ -22,7 +22,7 @@
         data() {
           return {
             num: 4,
-            timer: 0,
+            timer: 0
           }
         },
         created(){

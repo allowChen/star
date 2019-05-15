@@ -1,7 +1,7 @@
 <template>
   <div class="sl-parent">
     <h1>选择星座</h1>
-    <ul class="clearfix">
+    <ul class="clearfix" v-if="obj">
       <div class="sl-layout" v-for="(item, index) in  obj" :key="item.id">
         <img :src="skip(item.imgUrl)" @click="over(item.name, item.english, item.date, item.imgUrl)">
         <li>{{item.name}}<br>{{item.english}}<br>{{item.date}}</li>
@@ -14,25 +14,32 @@
 <script>
   export default {
     name: "starSelect",
-    data() {
+    data () {
       return {
-        obj: null,
+        // obj: null,
         img: '',
         arr: []
       }
     },
-    created() {
-      this.obj = this.$store.state.constell.constellation
+    computed: {
+      obj () {
+        return this.$store.state.constell
+      }
+
     },
     methods: {
-      skip(val) {
-        return require('../assets' + val)
+      skip (val) {
+        return require ('../assets' + val)
       },
-      close() {
-            this.$router.push({path: '/index', name: 'index'})
+      close () {
+        this.$router.push ({path: '/index', name: 'index'})
       },
-      over(myName, myEng, myDate, myImg) {
-          this.$router.push({path: '/index', name: 'index', params: {name: myName, eng: myEng, date: myDate, imgUrl: myImg}})
+      over (myName, myEng, myDate, myImg) {
+        this.$router.push ({
+          path: '/index',
+          name: 'index',
+          params: {name: myName, eng: myEng, date: myDate, imgUrl: myImg}
+        })
       }
     }
   }
