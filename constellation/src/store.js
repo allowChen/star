@@ -13,7 +13,8 @@ export default new Vuex.Store ({
     nextWeek: null,
     month: null,
     year: null,
-    constell: null
+    constell: null,
+    count: 0
   },
   mutations: {
     increment (state, val) {
@@ -26,6 +27,9 @@ export default new Vuex.Store ({
     },
     getConstell (state, val) {
       state.constell = val.constellation
+    },
+    getCount (state) {
+      state.count ++
     }
   },
   actions: axios

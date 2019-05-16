@@ -2,8 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import VueScroller from 'vue-scroller'
 import 'reset-css'
+
+Vue.use(VueScroller)
+
 // Vue.config.productionTip = false
 
 new Vue({

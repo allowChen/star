@@ -1,28 +1,36 @@
 <template>
-  <div class="today-parent">
-    <div class="today-top">
-      <p class="today-title">星座伴侣</p>
-      <img src="../assets/images/icon_back.png" class="back-image" @click="skip">
-      <img :src="myImgUrl" class="host-image">
-      <div class="today-const">
-        <p class="today-name">{{myName}}{{myEng}}</p>
-        <p class="today-date">{{myDate}}</p>
-      </div>
-    </div>
-    <transition name="s">
-      <swiper-imgs v-if="show"></swiper-imgs>
-    </transition>
 
-    <div class="temp" v-if="!show">
-      <div v-if="hide">
-        <div class="temp-msg">啊哦,您的网络好像有问题---</div>
-        <img src="../assets/images/timg.gif" alt="">
+  <div class="scrollerWrap">
+    <scroller height="100%" :on-refresh="refresh" ref="myscroller">
+      <div class="today-parent">
+        <div class="today-top">
+          <p class="today-title">星座伴侣</p>
+          <img src="../assets/images/icon_back.png" class="back-image" @click="skip">
+          <img :src="myImgUrl" class="host-image">
+          <div class="today-const">
+            <p class="today-name">{{myName}}{{myEng}}</p>
+            <p class="today-date">{{myDate}}</p>
+          </div>
+        </div>
+
+        <transition name="s">
+          <swiper-imgs v-if="show"></swiper-imgs>
+        </transition>
+
+
+        <div class="temp" v-if="!show">
+          <div v-if="hide">
+            <div class="temp-msg">啊哦,您的网络好像有问题---</div>
+            <img src="../assets/images/timg.gif" alt="">
+          </div>
+          <div v-else>
+            <div class="temp-hide">加载中---</div>
+            <img src="../assets/images/timg.gif" alt="">
+          </div>
+        </div>
       </div>
-      <div v-else>
-        <div class="temp-hide">加载中---</div>
-        <img src="../assets/images/timg.gif" alt="">
-      </div>
-    </div>
+    </scroller>
+
   </div>
 </template>
 
@@ -48,35 +56,17 @@
       setTimeout(() => {
         this.hide = true
       }, 3000)
-      let date = new Date();
-      let arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22];
-      let num = date.getDate() < arr[date.getMonth()] ? date.getMonth() - 3 : date.getMonth() - 2;
 
       this.$store.dispatch('getData', this.$route.params.name ? this.$route.params.name : '白羊座')
       let params = this.$route.params
 
-      if (params.name) {
-        this.myName = params.name;
-      } else {
-        this.myName = this.$store.state.constell[num].name;
-      }
-      if (params.eng) {
-        this.myEng = params.eng;
-      } else {
-        this.myEng = this.$store.state.constell[num].english;
-      }
-      if (params.date) {
-        this.myDate = params.date;
+      this.myName = params.name ? params.name : '白羊座'
 
-      } else {
-        this.myDate = this.$store.state.constell[num].date;
-      }
+      this.myEng = params.eng ? params.eng : 'Aries'
 
-      if (params.imgUrl) {
-        this.myImgUrl = require('../assets' + params.imgUrl);
-      } else {
-        this.myImgUrl = require('../assets' + this.$store.state.constell[num].imgUrl);
-      }
+      this.myDate = params.date ? params.date : '(3.21-4.19)'
+
+      this.myImgUrl = params.imgUrl ? require('../assets' + params.imgUrl) : require('../assets/images/sl_aries.png')
     },
     computed: {
       show () {
@@ -86,12 +76,33 @@
     methods: {
       skip () {
         this.$router.push({path: '/select', name: 'select'})
+      },
+      refresh () {
+        this.$store.dispatch('getData', this.$route.params.name ? this.$route.params.name : '白羊座')
+
+        let timeId = setInterval(function () {
+          if (this.$store.state.count > 1) {
+            console.log(this.$store.state.count);
+            this.$refs.myscroller.finishPullToRefresh();//刷新完毕关闭刷新的转圈圈
+            clearInterval(timeId)
+          }
+        }.bind(this), 1000)
       }
     }
   }
 </script>
 
 <style scoped lang="less">
+
+  .scrollerWrap {
+    position: absolute;
+    width: 100%;
+    /*height: 100%;*/
+    min-height: 100vh;
+    top: 0;
+    bottom: 20px;
+  }
+
   .today-parent {
     width: 7.5rem;
     min-height: 100vh;

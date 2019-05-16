@@ -11,6 +11,7 @@ export default {
     let year = 'year'
     let key = '0db4a6757ed64712b97d60238e8c6bf1'
 
+
     function getToday (consName, today) {
       return axios.get ('/api/constellation/getAll?consName=' + consName + '&type=' + today + '&key=' + key)
     }
@@ -51,7 +52,7 @@ export default {
         month: month.data,
         year: year.data
       })
-
+      this.commit ('getCount')
     }))
   },
   getCon () {
